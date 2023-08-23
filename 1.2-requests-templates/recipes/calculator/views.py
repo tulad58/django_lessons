@@ -29,10 +29,21 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
+
 def index(request):
     template_name = 'calculator/index.html'
-
+    context = DATA
     return render(request, template_name, context)
+
+
+def count_servings(request, context):
+    if request.GET['servings']:
+        count = int(request.GET['servings'])
+        for k in context['recipe'].keys():
+            context['recipe'][k] *= count
+    return context
+
 
 def omlet_view(request):
     template_name = 'calculator/index.html'
@@ -43,7 +54,9 @@ def omlet_view(request):
           'соль, ч.л.': 0.5,
       }
     }
+    count_servings(request, context)
     return render(request, template_name, context)
+
 
 def pasta_view(request):
     template_name = 'calculator/index.html'
@@ -53,7 +66,9 @@ def pasta_view(request):
           'сыр, г': 0.05,
       }
     }
+    count_servings(request, context)
     return render(request, template_name, context)
+
 
 def buter_view(request):
     template_name = 'calculator/index.html'
@@ -65,4 +80,5 @@ def buter_view(request):
           'помидор, ломтик': 1,
       }
     }
+    count_servings(request, context)
     return render(request, template_name, context)
