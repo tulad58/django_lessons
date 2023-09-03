@@ -56,6 +56,9 @@ DATABASES = {
         'PORT': '5432',
         'USER': 'postgres',
         'PASSWORD': 'admin',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        },
     }
 }
 
@@ -120,3 +123,4 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
