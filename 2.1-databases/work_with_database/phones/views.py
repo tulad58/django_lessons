@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, get_object_or_404
+from phones.models import Phone
 
 def index(request):
     return redirect('catalog')
@@ -7,11 +7,13 @@ def index(request):
 
 def show_catalog(request):
     template = 'catalog.html'
-    context = {}
+    phones_object = Phone.objects.all()
+    context = {'phone': phones_object}
     return render(request, template, context)
 
 
 def show_product(request, slug):
     template = 'product.html'
-    context = {}
+    slug_url = get_object_or_404(Phone, slug=slug)
+    context = {'slug': slug_url}
     return render(request, template, context)

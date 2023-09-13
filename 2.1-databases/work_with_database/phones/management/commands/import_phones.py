@@ -12,10 +12,12 @@ class Command(BaseCommand):
         with open('phones.csv', 'r') as file:
             phones = list(csv.DictReader(file, delimiter=';'))
 
-        for phone in phones:
-            abc = Phone(
-                name=phone['name'],
-                image=phone['image'],
-                price=phone['price']
-                        )
-            abc.save()
+            for phone in phones:
+                Phone(
+                    name=phone['name'],
+                    image=phone['image'],
+                    price=phone['price'],
+                    release_date=phone['release_date'],
+                    lte_exists=phone['lte_exists'],
+                    slug=phone['name']
+                            ).save()
