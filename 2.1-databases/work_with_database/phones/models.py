@@ -1,5 +1,5 @@
 from django.db import models
-
+from slugify import slugify
 
 class Phone(models.Model):
     name = models.CharField(max_length=100)
@@ -10,9 +10,8 @@ class Phone(models.Model):
     slug = models.SlugField()
 
     def __str__(self):
-        return f"name: {self.name}, " \
-               f"price:{self.price}," \
-               f"image: {self.image}," \
-               f"release_date: {self.release_date}," \
-               f"lte_exists: {self.lte_exists}," \
-               f"slug: {self.slug}"
+        return f"name: {self.name}"
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super(Phone, self).save(*args, **kwargs)

@@ -8,12 +8,20 @@ def index(request):
 def show_catalog(request):
     template = 'catalog.html'
     phones_object = Phone.objects.all()
-    context = {'phone': phones_object}
+    if request.GET:
+        if request.GET.get('sort') == 'name':
+            phones_object = Phone.objects.order_by('name').all()
+        if request.GET.get('sort') == 'min_price':
+            phones_object = Phone.objects.order_by('price').all()
+        if request.GET.get('sort') == 'max_price':
+            phones_object = Phone.objects.order_by('-price').all()
+    context = {'phones': phones_object}
     return render(request, template, context)
 
 
 def show_product(request, slug):
     template = 'product.html'
-    slug_url = get_object_or_404(Phone, slug=slug)
-    context = {'slug': slug_url}
+    phones_object = Phone.objects.get(slug=slug)
+    context = {'phone': phones_object}
     return render(request, template, context)
+
