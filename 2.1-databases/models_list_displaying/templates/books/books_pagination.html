@@ -17,6 +17,10 @@
                 </div>
             {% endfor %}
         </div>
-
+        {% for page in page_obj %}
+            <span class="current">
+               {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+        {% endfor %}
     </div>
 {% endblock %}

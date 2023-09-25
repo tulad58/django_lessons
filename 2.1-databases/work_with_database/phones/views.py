@@ -24,4 +24,3 @@ def show_product(request, slug):
     phones_object = Phone.objects.get(slug=slug)
     context = {'phone': phones_object}
     return render(request, template, context)
-
