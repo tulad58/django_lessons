@@ -47,3 +47,17 @@ Content-Type: application/json
 
 GET {{baseUrl}}/measurements/3
 Content-Type: application/json
+
+###
+# Добавить картинку
+
+POST {{baseUrl}}/measurements_image/
+
+Content-Type: application/json
+{
+    "image": "/images/image.png"
+}
+# "Unsupported media type \"text/plain\" in request."
+# не могу понять почему через запрос не добавляется картинка, а на через DRF сайт добавилась
+
+###
