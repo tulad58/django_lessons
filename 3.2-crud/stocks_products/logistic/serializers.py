@@ -18,10 +18,11 @@ class ProductPositionSerializer(serializers.ModelSerializer):
 
 class StockSerializer(serializers.ModelSerializer):
     positions = ProductPositionSerializer(many=True)
+    filterset_fields = ['products']
 
     class Meta:
         model = Stock
-        fields = ['address', 'positions']
+        fields = ['address', 'positions', 'products']
 
 
     def create(self, validated_data):
@@ -51,10 +52,9 @@ class StockSerializer(serializers.ModelSerializer):
         # обновляем склад по его параметрам
         stock = super().update(instance, validated_data)
         for position in positions:
-            StockProduct.objects.filter(stock=stock, product=position['product']).update_or_create(
-                quantity=position['quantity'],
-                price=position['price'],
+            StockProduct.objects.update_or_create(
+                product=position['product'],
                 stock=stock,
+                defaults={'price': position['price'], 'quantity': position['quantity']}
             )
-
         return stock
