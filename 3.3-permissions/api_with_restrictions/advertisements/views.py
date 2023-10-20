@@ -15,7 +15,7 @@ class AdvertisementViewSet(ModelViewSet):
     permission_classes = [IsOwnerReadOnly, IsAuthenticated]
     filterset_class = AdvertisementFilter
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['creator', 'id', 'status', 'created_at',]
+
 
 
     def get_permissions(self):
