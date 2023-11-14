@@ -24,7 +24,6 @@ class StockSerializer(serializers.ModelSerializer):
         model = Stock
         fields = ['address', 'positions', 'products']
 
-
     def create(self, validated_data):
         # достаем связанные данные для других таблиц
         positions = validated_data.pop('positions')
@@ -55,6 +54,9 @@ class StockSerializer(serializers.ModelSerializer):
             StockProduct.objects.update_or_create(
                 product=position['product'],
                 stock=stock,
-                defaults={'price': position['price'], 'quantity': position['quantity']}
+                defaults={
+                    'price': position['price'],
+                    'quantity': position['quantity']
+                }
             )
         return stock
