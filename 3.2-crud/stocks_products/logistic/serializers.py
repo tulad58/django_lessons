@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Product, Stock, StockProduct
 
+
 class ProductSerializer(serializers.ModelSerializer):
     # настройте сериализатор для продукта
     class Meta:
@@ -22,7 +23,6 @@ class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
         fields = ['address', 'positions', 'products']
-
 
     def create(self, validated_data):
         # достаем связанные данные для других таблиц
@@ -54,7 +54,7 @@ class StockSerializer(serializers.ModelSerializer):
             StockProduct.objects.update_or_create(
                 product=position['product'],
                 stock=stock,
-                defaults={'price': position['price'], 
-                          'quantity': position['quantity']}
+                defaults={'price': position['price'],
+                        'quantity': position['quantity']}
             )
         return stock

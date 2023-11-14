@@ -7,3 +7,4 @@ class TestSomething(TestCase):
         client = APIClient
         resp = client.get('/api/v1/test/')
         self.assertEqual(resp.status_code, 200)
+        
