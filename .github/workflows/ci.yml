@@ -66,3 +66,4 @@ jobs:
           username: ${{  secrets.SSH_USER }}
           password: ${{  secrets.SSH_PASSWORD }}
           script: expect /home/vlad/django_lessons/3.2-crud/stocks_products/deploy.exp
+  
