@@ -6,55 +6,55 @@ on:
 
 jobs:
   tests:
-  runs-on: ubutu:22.04
-  env:
-    SECRET: ${{ secrets.DJANGO_SECRET }}
-    DEBUG: ${{ secret.DEBUG }}
-    ALLOWED_HOSTS: ${{ secrets.ALLOWED }}
-    DB_ENGINE: ${{ secrets.DB_ENGINE }}
-    DB_USER: ${{ secret.DB_USER }}
-    DB_PASSWORD: ${{ secret.DB_PASSWORD }}
-    DB_NAME: ${{ secret.DB_NAME }}
-    DB_HOST: ${{ secret.DB_HOST }}
-    DB_PORT: ${{  secret.DB_PORT }}
-  services:
-    postgres_db:
-      image: postgres:12
-      env:
-        POSTGRES_DB: ${{ env.DB_NAME }}
-        POSTGRES_USER: ${{ env.DB_USER }}
-        POSTGRES_PASSWORD: ${{ env.DB_PASSWORD}}
-      port:
-        -5432:5432
-      options:
-        --health-cmd pg_isready
-        --health-interval 5s
-        --health-timeout 5s
-        --health-retries 5
-    steps:  
-      - name: Проверка наличия измененийв репозитории
-        uses: actions/checkout@v3
+    runs-on: ubutu:22.04
+    env:
+      SECRET: ${{ secrets.DJANGO_SECRET }}
+      DEBUG: ${{ secret.DEBUG }}
+      ALLOWED_HOSTS: ${{ secrets.ALLOWED }}
+      DB_ENGINE: ${{ secrets.DB_ENGINE }}
+      DB_USER: ${{ secret.DB_USER }}
+      DB_PASSWORD: ${{ secret.DB_PASSWORD }}
+      DB_NAME: ${{ secret.DB_NAME }}
+      DB_HOST: ${{ secret.DB_HOST }}
+      DB_PORT: ${{  secret.DB_PORT }}
+    services:
+      postgres_db:
+        image: postgres:12
+        env:
+          POSTGRES_DB: ${{ env.DB_NAME }}
+          POSTGRES_USER: ${{ env.DB_USER }}
+          POSTGRES_PASSWORD: ${{ env.DB_PASSWORD}}
+        port:
+          -5432:5432
+        options:
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+      steps:  
+        - name: Проверка наличия измененийв репозитории
+          uses: actions/checkout@v3
 
-      - name: Установка python и создание окружения
-        uses: actions/setup-python@v3  
-        with:
-          python-version:3.9
+        - name: Установка python и создание окружения
+          uses: actions/setup-python@v3  
+          with:
+            python-version:3.9
 
-      - name: Установка зависимостей
-        run: pip install -r requirements.txt
+        - name: Установка зависимостей
+          run: pip install -r requirements.txt
 
-      - name: Линтинг
-        run: flake8 logistic/ --exclude logistic/migrations/
+        - name: Линтинг
+          run: flake8 logistic/ --exclude logistic/migrations/
 
-      - name: Тестирование
-        run: python manage.py test
-        env: 
-          SECRET_KEY: ${{ secrets.DJANGO_SECRET }}
-          DEBUG: ${{ secret.DEBUG }}
-          ALLOWED_HOSTS: ${{ secrets.ALLOWED }}
-          DB_ENGINE: ${{ secrets.DB_ENGINE }}
-          DB_USER: ${{ secret.DB_USER }}
-          DB_PASSWORD: ${{ secret.DB_PASSWORD }}
-          DB_NAME: ${{ secret.DB_NAME }}
-          DB_HOST: ${{ secret.DB_HOST }}
-          DB_PORT: ${{  secret.DB_PORT }}
+        - name: Тестирование
+          run: python manage.py test
+          env: 
+            SECRET_KEY: ${{ secrets.DJANGO_SECRET }}
+            DEBUG: ${{ secret.DEBUG }}
+            ALLOWED_HOSTS: ${{ secrets.ALLOWED }}
+            DB_ENGINE: ${{ secrets.DB_ENGINE }}
+            DB_USER: ${{ secret.DB_USER }}
+            DB_PASSWORD: ${{ secret.DB_PASSWORD }}
+            DB_NAME: ${{ secret.DB_NAME }}
+            DB_HOST: ${{ secret.DB_HOST }}
+            DB_PORT: ${{  secret.DB_PORT }}
