@@ -2,11 +2,11 @@ name: Автоматизация тестирования и развертыв�
 
 on: 
   push:
-    branch: [video]
+    branches: [video]
 
 jobs:
   tests:
-    runs-on: ubutu:22.04
+    runs-on: ubutu-22.04
     env:
       SECRET: ${{ secrets.DJANGO_SECRET }}
       DEBUG: ${{ secret.DEBUG }}
@@ -24,14 +24,14 @@ jobs:
           POSTGRES_DB: ${{ env.DB_NAME }}
           POSTGRES_USER: ${{ env.DB_USER }}
           POSTGRES_PASSWORD: ${{ env.DB_PASSWORD}}
-        port:
-          -5432:5432
+        ports:
+          - 5432:5432
         options:
           --health-cmd pg_isready
           --health-interval 5s
           --health-timeout 5s
           --health-retries 5
-      steps:  
+      steps:
         - name: Проверка наличия измененийв репозитории
           uses: actions/checkout@v3
 
