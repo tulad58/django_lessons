@@ -31,30 +31,30 @@ jobs:
           --health-interval 5s
           --health-timeout 5s
           --health-retries 5
-      steps:
-        - name: Проверка наличия измененийв репозитории
-          uses: actions/checkout@v3
+    steps:
+      - name: Проверка наличия измененийв репозитории
+        uses: actions/checkout@v3
 
-        - name: Установка python и создание окружения
-          uses: actions/setup-python@v3  
-          with:
-            python-version:3.9
+      - name: Установка python и создание окружения
+        uses: actions/setup-python@v3  
+        with:
+          python-version:3.9
 
-        - name: Установка зависимостей
-          run: pip install -r requirements.txt
+      - name: Установка зависимостей
+        run: pip install -r requirements.txt
 
-        - name: Линтинг
-          run: flake8 logistic/ --exclude logistic/migrations/
+      - name: Линтинг
+        run: flake8 logistic/ --exclude logistic/migrations/
 
-        - name: Тестирование
-          run: python manage.py test
-          env: 
-            SECRET_KEY: ${{ secrets.DJANGO_SECRET }}
-            DEBUG: ${{ secret.DEBUG }}
-            ALLOWED_HOSTS: ${{ secrets.ALLOWED }}
-            DB_ENGINE: ${{ secrets.DB_ENGINE }}
-            DB_USER: ${{ secret.DB_USER }}
-            DB_PASSWORD: ${{ secret.DB_PASSWORD }}
-            DB_NAME: ${{ secret.DB_NAME }}
-            DB_HOST: ${{ secret.DB_HOST }}
-            DB_PORT: ${{  secret.DB_PORT }}
+      - name: Тестирование
+        run: python manage.py test
+        env: 
+          SECRET_KEY: ${{ secrets.DJANGO_SECRET }}
+          DEBUG: ${{ secret.DEBUG }}
+          ALLOWED_HOSTS: ${{ secrets.ALLOWED }}
+          DB_ENGINE: ${{ secrets.DB_ENGINE }}
+          DB_USER: ${{ secret.DB_USER }}
+          DB_PASSWORD: ${{ secret.DB_PASSWORD }}
+          DB_NAME: ${{ secret.DB_NAME }}
+          DB_HOST: ${{ secret.DB_HOST }}
+          DB_PORT: ${{  secret.DB_PORT }}
