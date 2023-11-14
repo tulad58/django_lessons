@@ -1,0 +1,5 @@
+#!/bin/bash/expect
+spawn /home/vlad/django_lessons/3.2-crud/stocks_products/deploy.sh
+expect "password"
+send "vlad"
+expect eof
