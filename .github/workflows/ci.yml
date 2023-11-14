@@ -35,7 +35,7 @@ jobs:
       - name: Проверка наличия измененийв репозитории
         uses: actions/checkout@v3
 
-      -name: Установка python и создание окружения
+      - name: Установка python и создание окружения
         uses: actions/setup-python@v3  
         with:
           python-version:3.9
