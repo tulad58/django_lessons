@@ -5,6 +5,9 @@ from logistic.views import ProductViewSet, StockViewSet, sample_view
 router = DefaultRouter()
 router.register('products', ProductViewSet)
 router.register('stocks', StockViewSet)
-router.register('test', sample_view)
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('test/', sample_view),
+]
+
+urlpatterns += router.urls
